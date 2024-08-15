@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_stream_app/live_screen.dart';
+import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 String liveID = 'live';
-bool isHost = true;
+bool isHost = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,12 +31,15 @@ bool isHost = true;
               decoration: InputDecoration(labelText: 'Stream id'),
 
             ),
-            Switch(value: true, onChanged: (val){
-              isHost = val;
+            Switch(value: isHost, onChanged: (val){
+              setState(() {
+                isHost = val;
+              });
+
             }),
             Spacer(),
             ElevatedButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveScreen(liveID: liveID, isHost: isHost)));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveScreen(liveID: liveID.toString(), isHost: isHost)));
             },child: Text('join'),),
             SizedBox(height: 20,)
           ],
